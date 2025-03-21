@@ -1,0 +1,163 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/* Navigation Bar */
+nav {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+nav ul li {
+    margin: 0 15px;
+}
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s;
+}
+nav ul li a:hover, .active {
+    color: #ff4d4d;
+    border-bottom: 2px solid #ff4d4d;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: url('/static/home-bg.jpg') no-repeat center center/cover;
+}
+.hero h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+.hero p {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+.hero .btn {
+    background: #ff4d4d;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.hero .btn:hover {
+    background: white;
+    color: #ff4d4d;
+}
+
+/* About Us Page */
+.about {
+    padding: 80px 20px;
+    text-align: center;
+    background: #fff;
+}
+.about-content {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.card {
+    background: #ff4d4d;
+    color: white;
+    padding: 20px;
+    width: 300px;
+    border-radius: 10px;
+    text-align: center;
+    transition: 0.3s;
+}
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Metrics Page */
+.metrics {
+    padding: 80px 20px;
+    text-align: center;
+}
+.metrics-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+}
+
+/* Flowchart Page */
+.flowchart {
+    text-align: center;
+    padding: 80px 20px;
+}
+.flowchart-container img {
+    width: 70%;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+.flowchart-container img:hover {
+    transform: scale(1.05);
+}
+
+/* Predictions Page */
+.predictions {
+    text-align: center;
+    padding: 80px 20px;
+}
+.predictions-form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    margin: auto;
+}
+.predictions-form label {
+    display: block;
+    margin-top: 10px;
+}
+.predictions-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.predictions-form button {
+    margin-top: 20px;
+    background: #ff4d4d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+.predictions-form button:hover {
+    background: white;
+    color: #ff4d4d;
+}

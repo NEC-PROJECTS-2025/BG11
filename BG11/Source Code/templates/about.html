@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}" class="active">About</a></li>
+                <li><a href="{{ url_for('metrics') }}">Metrics</a></li>
+                <li><a href="{{ url_for('flowchart') }}">Flowchart</a></li>
+                <li><a href="{{ url_for('predict') }}">Predict</a></li>
+                <li><a href="{{ url_for('upload_page') }}">Upload</a></li> 
+            </ul>
+        </nav>
+    </header>
+    <section class="about">
+        <h1>About This Project</h1>
+        <p>This project leverages AI-powered machine learning models to predict heart disease risks with high accuracy. Our goal is to aid in early diagnosis and prevention.</p>
+        <div class="about-content">
+            <div class="card">
+                <h3>Our Vision</h3>
+                <p>To make healthcare more proactive and data-driven using advanced AI models.</p>
+            </div>
+            <div class="card">
+                <h3>Technology</h3>
+                <p>We use Flask, Python, and Machine Learning to build this prediction model.</p>
+            </div>
+            <div class="card">
+                <h3>Meet the Team</h3>
+                <p>We are a team of AI enthusiasts and healthcare professionals committed to innovation.</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

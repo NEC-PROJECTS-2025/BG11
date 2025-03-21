@@ -1,0 +1,192 @@
+<style>
+    body {
+        background: url('https://media.istockphoto.com/id/1448453929/photo/cardiogram-pulse-trace-with-red-heart-on-pastel-blue-background.jpg?s=612x612&w=0&k=20&c=vROYnUeWCFJQ7uAV0Z_H1gQcwtBTygDg0aIB2YggbY0=') no-repeat center center fixed;
+        background-size: cover;
+        color: rgb(220, 84, 84);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        width: 90%;
+        max-width: 500px;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 2px solid transparent;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: 0.3s;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+
+    input::placeholder {
+        color: white;
+        font-size: 16px;
+        font-style: italic;
+    }
+
+    select option {
+        background: rgba(0, 0, 0, 0.9);
+        color: white;
+    }
+
+    input:focus, select:focus {
+        outline: none;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        border-color: white;
+    }
+
+    .predict-btn {
+        background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        color: white;
+        border: none;
+        padding: 12px;
+        cursor: pointer;
+        font-size: 18px;
+        border-radius: 6px;
+        width: 100%;
+        transition: 0.3s;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    .predict-btn.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .predict-btn:hover {
+        background: linear-gradient(45deg, #ff4b2b, #ff416c);
+        transform: scale(1.05);
+    }
+
+    .result {
+        margin-top: 20px;
+        font-size: 20px;
+        font-weight: bold;
+        background: rgb(124, 165, 203);
+        padding: 10px;
+        border-radius: 6px;
+    }
+</style>
+
+<h1>Heart Disease Prediction</h1>
+<p>Enter your details to predict heart disease risk.</p>
+
+<div class="container">
+    <form id="prediction-form">
+        <input type="number" placeholder="Age" id="age" min="1" required>
+        <select id="sex" required>
+            <option value="">Select Sex</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+        <select id="chestPainType" required>
+            <option value="">Chest Pain Type</option>
+            <option value="ATA">ATA</option>
+            <option value="NAP">NAP</option>
+            <option value="ASY">ASY</option>
+            <option value="TA">TA</option>
+        </select>
+        <input type="number" placeholder="Resting Blood Pressure" id="restingBP" min="0" required>
+        <input type="number" placeholder="Cholesterol Level" id="cholesterol" min="0" required>
+        <select id="fastingBS" required>
+            <option value="">Fasting Blood Sugar > 120 mg/dl?</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+        <select id="restingECG" required>
+            <option value="">Resting ECG</option>
+            <option value="Normal">Normal</option>
+            <option value="ST">ST</option>
+            <option value="LVH">LVH</option>
+        </select>
+        <input type="number" placeholder="Max Heart Rate" id="maxHR" min="0" required>
+        <select id="exerciseAngina" required>
+            <option value="">Exercise Induced Angina</option>
+            <option value="N">No</option>
+            <option value="Y">Yes</option>
+        </select>
+        <input type="number" step="0.1" placeholder="Oldpeak" id="oldpeak" min="0" required>
+        <select id="stSlope" required>
+            <option value="">ST Slope</option>
+            <option value="Up">Up</option>
+            <option value="Flat">Flat</option>
+            <option value="Down">Down</option>
+        </select>
+        <button type="submit" class="predict-btn" id="predict-btn" disabled>Predict</button>
+    </form>
+
+    <div class="result" id="result">Your prediction will appear here.</div>
+</div>
+
+<script>
+    function validateForm() {
+        let isValid = true;
+
+        document.querySelectorAll("#prediction-form input, #prediction-form select").forEach((element) => {
+            if (!element.value) {
+                isValid = false;
+            }
+        });
+
+        const predictBtn = document.getElementById("predict-btn");
+        if (isValid) {
+            predictBtn.classList.add("active");
+            predictBtn.disabled = false;
+        } else {
+            predictBtn.classList.remove("active");
+            predictBtn.disabled = true;
+        }
+    }
+
+    document.querySelectorAll("#prediction-form input, #prediction-form select").forEach((element) => {
+        element.addEventListener("input", validateForm);
+    });
+
+    document.getElementById('prediction-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = "Processing...";
+        resultDiv.style.color = "white";
+
+        setTimeout(() => {
+            const age = parseInt(document.getElementById('age').value);
+            const cholesterol = parseInt(document.getElementById('cholesterol').value);
+            const restingBP = parseInt(document.getElementById('restingBP').value);
+            const maxHR = parseInt(document.getElementById('maxHR').value);
+            const oldpeak = parseFloat(document.getElementById('oldpeak').value);
+            const exerciseAngina = document.getElementById('exerciseAngina').value;
+            const chestPainType = document.getElementById('chestPainType').value;
+            const fastingBS = parseInt(document.getElementById('fastingBS').value);
+            const restingECG = document.getElementById('restingECG').value;
+            const stSlope = document.getElementById('stSlope').value;
+
+            let prediction = 'Patient Is Safe';
+            if (
+                age > 50 || cholesterol > 200 || restingBP > 140 || maxHR < 100 || 
+                oldpeak > 1.0 || exerciseAngina === 'Y' || chestPainType === 'ASY' || 
+                chestPainType === 'TA' || fastingBS === 1 || restingECG === 'LVH' || 
+                stSlope === 'Flat' || stSlope === 'Down'
+            ) {
+                prediction = 'Patient Has Heart Disease';
+            }
+
+            resultDiv.innerHTML = `Prediction Result: <span style="color: ${prediction === 'Patient Has Heart Disease' ? 'red' : 'green'}">${prediction}</span>`;
+        }, 2000);
+    });
+</script>

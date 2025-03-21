@@ -1,0 +1,10 @@
+Flask==3.0.0  
+Flask-WTF==1.1.1  
+Werkzeug==2.2.3  
+Pandas==2.1.0  
+NumPy==1.24.2  
+TensorFlow==2.10.0  
+Keras==2.10.0  
+scikit-learn==1.2.0  
+matplotlib==3.7.1  
+seaborn==0.12.2  

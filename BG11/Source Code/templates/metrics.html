@@ -1,0 +1,193 @@
+<!-- <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Evaluation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('metrics') }}" class="active">Metrics</a></li>
+                <li><a href="{{ url_for('flowchart') }}">Flowchart</a></li>
+                <li><a href="{{ url_for('predict') }}">Predict</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="metrics">
+        <h1>Model Performance</h1>
+        <div class="metrics-box">
+            <p><strong>Accuracy:</strong> {{ accuracy }}%</p>
+            <p><strong>Precision:</strong> {{ precision }}</p>
+            <p><strong>Recall:</strong> {{ recall }}</p>
+        </div>
+    </section>
+</body>
+</html> -->
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Evaluation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        header nav ul li {
+            display: inline-block;
+            margin: 0 20px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        header nav ul li a.active {
+            font-weight: bold;
+        }
+
+        .metrics {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metrics h1 {
+            margin-bottom: 20px;
+        }
+
+        .metrics-box {
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            display: inline-block;
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .metrics-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .metrics-table th, .metrics-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .metrics-table th {
+            background-color: #f4f4f4;
+        }
+
+        .metrics-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .metrics-table .high-risk {
+            color: red;
+        }
+
+        .metrics-table .low-risk {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('metrics') }}" class="active">Metrics</a></li>
+                <li><a href="{{ url_for('flowchart') }}">Flowchart</a></li>
+                <li><a href="{{ url_for('predict') }}">Predict</a></li>
+                <li><a href="{{ url_for('upload_page') }}">Upload</a></li> 
+            </ul>
+        </nav>
+    </header>
+
+    <section class="metrics">
+        <h1>Model Performance</h1>
+        <div class="metrics-box">
+            <p><strong>Accuracy:</strong> 93.5%</p>
+            <p><strong>Precision (Class 0):</strong> 0.92</p>
+            <p><strong>Precision (Class 1):</strong> 0.81</p>
+            <p><strong>Recall (Class 0):</strong> 0.77</p>
+            <p><strong>Recall (Class 1):</strong> 0.94</p>
+            <p><strong>F1-Score (Class 0):</strong> 0.84</p>
+            <p><strong>F1-Score (Class 1):</strong> 0.87</p>
+        </div>
+
+        <h2>Detailed Metrics</h2>
+        <table class="metrics-table">
+            <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Class 0</th>
+                    <th>Class 1</th>
+                    <th>Macro Avg</th>
+                    <th>Weighted Avg</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Precision</td>
+                    <td>0.92</td>
+                    <td>0.81</td>
+                    <td>0.87</td>
+                    <td>0.87</td>
+                </tr>
+                <tr>
+                    <td>Recall</td>
+                    <td>0.77</td>
+                    <td>0.94</td>
+                    <td>0.86</td>
+                    <td>0.86</td>
+                </tr>
+                <tr>
+                    <td>F1-Score</td>
+                    <td>0.84</td>
+                    <td>0.87</td>
+                    <td>0.86</td>
+                    <td>0.86</td>
+                </tr>
+                <tr>
+                    <td>Support</td>
+                    <td>44</td>
+                    <td>47</td>
+                    <td>91</td>
+                    <td>91</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

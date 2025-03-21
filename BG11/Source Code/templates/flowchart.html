@@ -1,0 +1,212 @@
+<!-- <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Flowchart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('about') }}">About</a></li>
+                <li><a href="{{ url_for('metrics') }}">Metrics</a></li>
+                <li><a href="{{ url_for('flowchart') }}" class="active">Flowchart</a></li>
+                <li><a href="{{ url_for('predict') }}">Predict</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="flowchart">
+        <h1>Prediction Process</h1>
+        <div class="flowchart-container">
+            <img src="{{ url_for('static', filename='flowchart.png') }}" alt="Prediction Flowchart">
+        </div>
+    </section>
+</body>
+</html> -->
+
+
+
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction Flowchart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('https://boyntonbeach.floridapremiercardio.com/wp-content/uploads/cardiology-2003b.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            color: white;
+        }
+
+        h1 {
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .flowchart-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 20px;
+        }
+
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 100%;
+        }
+
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            width: 220px;
+            font-size: 16px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            margin: 10px;
+            position: relative;
+            border: 2px solid #2980b9;
+        }
+
+        .box:hover {
+            background-color: #2980b9;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 10px solid white;
+            margin: 10px;
+        }
+
+        .connector-vertical {
+            width: 4px;
+            height: 40px;
+            background-color: white;
+            margin: 10px 0;
+        }
+
+        .info-box {
+            position: absolute;
+            top: 0;
+            left: 250px;
+            background-color: #ecf0f1;
+            color: #333;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            visibility: hidden;
+            font-size: 14px;
+        }
+
+        .info-box.active {
+            visibility: visible;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Heart Disease Prediction Flowchart</h1>
+    <div class="flowchart-container">
+        <div class="flowchart">
+            <!-- First Stage -->
+            <div class="box" onclick="showInfo(event, 'Dataset: Contains patient medical data to train and analyze the model.')">Dataset</div>
+            <div class="connector-vertical"></div>
+
+            <!-- Second Stage -->
+            <div class="box" onclick="showInfo(event, 'Data Preprocessing: Cleans the dataset by handling missing values, removing duplicates, and encoding categorical variables.')">
+                Data Preprocessing
+            </div>
+            <div class="connector-vertical"></div>
+
+            <!-- Third Stage -->
+            <div class="box" onclick="showInfo(event, 'Feature Transformation: Converts raw data into suitable formats for analysis, including detecting and handling outliers.')">
+                Feature Transformation
+            </div>
+
+            <!-- Row for K-Fold and Deep Learning -->
+            <div class="row">
+                <div class="connector-vertical"></div>
+                <div class="box" onclick="showInfo(event, 'K-Fold Cross Validation: Splits data into multiple subsets to improve model training and testing.')">
+                    K-Fold Cross Validation
+                </div>
+                <div class="arrow"></div>
+                <div class="box" onclick="showInfo(event, 'Deep Learning: Advanced techniques like neural networks to improve prediction accuracy.')">
+                    Deep Learning
+                </div>
+            </div>
+
+            <!-- Final Stages -->
+            <div class="connector-vertical"></div>
+            <div class="box" onclick="showInfo(event, 'Model Evaluation: Assesses the model\'s performance with metrics like accuracy, precision, and recall.')">
+                Model Evaluation
+            </div>
+            <div class="connector-vertical"></div>
+            <div class="box" onclick="showInfo(event, 'Heart Disease Prediction: Final stage where the trained model predicts the likelihood of heart disease for a patient.')">
+                Heart Disease Prediction
+            </div>
+        </div>
+    </div>
+
+    <div id="info-box" class="info-box"></div>
+
+    <script>
+        function showInfo(event, text) {
+            const infoBox = document.getElementById("info-box");
+
+            // Get the position of the clicked box
+            const rect = event.target.getBoundingClientRect();
+            const left = rect.left + rect.width + 10; // position it to the right of the box
+            const top = rect.top;
+
+            // Update the info box position and content
+            infoBox.innerText = text;
+            infoBox.style.left = `${left}px`;
+            infoBox.style.top = `${top}px`;
+            infoBox.classList.add("active");
+
+            // Set a timeout to hide the info box after 5 seconds
+            setTimeout(function() {
+                infoBox.classList.remove("active");
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
+{% endblock %}
